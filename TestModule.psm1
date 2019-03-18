@@ -1,10 +1,12 @@
-﻿<#
+﻿
 function Get-Foo
 {
     Write-Verbose "I'm the foo"
     Write-Output "foo"
+
+    [Device]::Find()
 }
-#>
+
 <#
 #Get function definition files.
 $Public = @(Get-ChildItem -Path $PSScriptRoot\Functions\*.ps1 -ErrorAction SilentlyContinue)
@@ -22,3 +24,15 @@ Foreach ($import in @($Public))
 # Export all the functions
 Export-ModuleMember -Function $Public.Basename -Alias *
 #>
+
+class Device {
+    [string]$Brand
+    [string]$Model
+    [string]$VendorSku
+
+    [string]ToString(){
+        return ("{0}|{1}|{2}" -f $this.Brand, $this.Model, $this.VendorSku)
+    }
+
+    static [void]Find(){write-host "Lost."}
+}

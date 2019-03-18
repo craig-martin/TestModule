@@ -1,4 +1,4 @@
-﻿
+﻿Import-Module TestModule
 enum Ensure
 {
     Absent
@@ -23,7 +23,10 @@ class TestClassDscResource
     {
         ### Call some function
         Write-Verbose "Calling Foo ..."
-        Get-Foo     
+        Write-Verbose (Get-Foo)
+
+        Write-Verbose "Calling a PowerShell Class"
+        Write-Verbose ([Device]::Find())
 
         $this.Key        = 'the key'
         $this.SomeString = 'the string'        
